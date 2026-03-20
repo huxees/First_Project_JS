@@ -1,6 +1,23 @@
 "using strict";
 
-const numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
+// loop0: {
+//     const numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
+//     if(!numberOfFilms){
+//         console.log('Необходимо ввести значение!');
+//         break loop0;
+//     }
+// }
+
+let flag = true;
+let numberOfFilms;
+while(flag){
+    numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
+    if(!numberOfFilms){
+        alert('Необходимо ввести значение!');
+    } else {
+        flag = false;
+    }
+}
 
 const personalMovieDB = {
     count: "",
@@ -10,13 +27,42 @@ const personalMovieDB = {
     privet: false
 };
 
-let nameOfFilm1 = prompt('Один из просмотренных фильмов?', ''),
-    ratingFilm1 = +prompt('На сколько оцените его?', ''),
-    nameOfFilm2 = prompt('Один из просмотренных фильмов?', ''),
-    ratingFilm2 = +prompt('На сколько оцените его?', '');
-
-personalMovieDB.count = numberOfFilms;
-personalMovieDB.movies[nameOfFilm1] = ratingFilm1;
-personalMovieDB.movies[nameOfFilm2] = ratingFilm2;
+let i = 1;
+do {
+    let nameOfFilm, ratingFilm;
+    let flag = true;
+    while(flag){
+        nameOfFilm = prompt('Один из просмотренных фильмов?', '');
+        if(!nameOfFilm){
+            alert('Необходимо ввести значение!');
+        }
+        else if (nameOfFilm.length >= 50) {
+            alert('Название слишком длинное.');
+        } else {
+            flag = false;
+        }
+    }
+    flag = true;
+    while(flag){
+        ratingFilm = +prompt('На сколько оцените его?', '');
+        if(!ratingFilm){
+            alert('Необходимо ввести значение!');
+        } else {
+            flag = false
+        };
+    }
+    
+    personalMovieDB.movies[nameOfFilm] = ratingFilm;
+    i++;
+} while (i<=2);
 
 console.log(personalMovieDB);
+
+personalMovieDB.count = numberOfFilms;
+if (personalMovieDB.count < 10) {
+    console.log("Просмотрено довольно мало фильмов");
+} else if (10 <= personalMovieDB.count < 30) {
+    console.log("Вы классический зритель");
+} else if (personalMovieDB.count > 30){
+    console.log("вы киноман!");
+} else ("Произошла ошибка");
